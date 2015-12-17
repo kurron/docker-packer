@@ -2,11 +2,11 @@
 
 CMD="docker run \
        --rm \
-       --name maven \
+       --name packer \
        --net "host" \
        --user 1000:1000 \
        --volume $HOME:/home/developer \
-       kurron/docker-maven:latest"
+       kurron/docker-packer:latest"
 
 #echo $CMD
 eval $CMD $*
