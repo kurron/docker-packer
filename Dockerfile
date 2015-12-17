@@ -1,18 +1,30 @@
-FROM kurron/docker-jetbrains-base:latest
+FROM ubuntu:14.04 
 
 MAINTAINER Ron Kurr <kurr@kurron.org>
 
-LABEL org.kurron.ide.name="Apache Maven" org.kurron.ide.version=3.3.9
+LABEL org.kurron.ide.name="Packer" org.kurron.ide.version=0.8.6
 
-ADD http://mirrors.ibiblio.org/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz /tmp/ide.tar.gz
+ADD https://dl.bintray.com/mitchellh/packer/packer_0.8.6_linux_amd64.zip /tmp/ide.zip 
 
-RUN mkdir -p /opt/maven && \
-    tar zxvf /tmp/ide.tar.gz --strip-components=1 -C /opt/maven && \
-    rm /tmp/ide.tar.gz
+RUN apt-get update && \
+    apt-get install -y unzip && \
+    unzip /tmp/ide.zip -d /usr/local/bin && \
+    apt-get autoremove -y && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf /tmp/*
 
-ENV M2_HOME=/opt/maven
+RUN chmod 0555 /usr/local/bin/*
 
-USER developer:developer
+# Create a user and group that matches what is in most Vagrant boxes
+RUN groupadd --gid 1000 developer && \
+    useradd --gid 1000 --uid 1000 --create-home --shell /bin/bash developer && \
+    chown -R developer:developer /home/developer
+
+# the user of this image is expected to mount his actual home directory to this one
+VOLUME ["/home/developer"]
+
+ENV HOME /home/developer
 WORKDIR /home/developer
-ENTRYPOINT ["/opt/maven/bin/mvn"]
+ENTRYPOINT ["/usr/local/bin/packer"]
 CMD ["--version"]

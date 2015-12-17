@@ -1,9 +1,9 @@
-maven:
+packer:
     build: .
     labels:
-        org.kurron.description: "Apache Maven"
-        org.kurron.version: "3.3.3"
-    container_name: "maven"
+        org.kurron.description: "Packer"
+        org.kurron.version: "0.8.6"
+    container_name: "packer"
     net: "host"
     volumes:
         - /home/vagrant:/home/developer
