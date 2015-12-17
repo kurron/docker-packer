@@ -7,7 +7,7 @@ LABEL org.kurron.ide.name="Packer" org.kurron.ide.version=0.8.6
 ADD https://dl.bintray.com/mitchellh/packer/packer_0.8.6_linux_amd64.zip /tmp/ide.zip 
 
 RUN apt-get update && \
-    apt-get install -y unzip && \
+    apt-get install -y unzip ca-certificates && \
     unzip /tmp/ide.zip -d /usr/local/bin && \
     apt-get autoremove -y && \
     apt-get clean && \
@@ -24,7 +24,14 @@ RUN groupadd --gid 1000 developer && \
 # the user of this image is expected to mount his actual home directory to this one
 VOLUME ["/home/developer"]
 
+VOLUME ["/pwd"]
+
+# Set the AWS environment variables
+ENV AWS_ACCESS_KEY_ID OVERRIDE ME
+ENV AWS_SECRET_ACCESS_KEY OVERRIDE_ME
+ENV AWS_REGION us-west-2
+
 ENV HOME /home/developer
-WORKDIR /home/developer
+WORKDIR /pwd
 ENTRYPOINT ["/usr/local/bin/packer"]
 CMD ["--version"]
