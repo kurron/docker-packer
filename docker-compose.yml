@@ -1,10 +1,12 @@
 packer:
     build: .
-    labels:
-        org.kurron.description: "Packer"
-        org.kurron.version: "0.8.6"
-    container_name: "packer"
     net: "host"
+    environment:
+        AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+        AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+        AWS_REGION: ${AWS_REGION}
     volumes:
         - /home/vagrant:/home/developer
     user: 1000:1000
+    stdin_open: true
+    tty: true
