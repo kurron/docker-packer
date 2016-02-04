@@ -7,7 +7,7 @@ LABEL org.kurron.ide.name="Packer" org.kurron.ide.version=0.8.6
 ADD https://dl.bintray.com/mitchellh/packer/packer_0.8.6_linux_amd64.zip /tmp/ide.zip 
 
 RUN apt-get update && \
-    apt-get install -y unzip ca-certificates && \
+    apt-get install -y unzip ca-certificates git && \
     unzip /tmp/ide.zip -d /usr/local/bin && \
     apt-get autoremove -y && \
     apt-get clean && \
