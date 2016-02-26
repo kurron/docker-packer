@@ -2,9 +2,9 @@ FROM ubuntu:14.04
 
 MAINTAINER Ron Kurr <kurr@kurron.org>
 
-LABEL org.kurron.ide.name="Packer" org.kurron.ide.version=0.8.6
+LABEL org.kurron.ide.name="Packer" org.kurron.ide.version=0.9.0
 
-ADD https://dl.bintray.com/mitchellh/packer/packer_0.8.6_linux_amd64.zip /tmp/ide.zip 
+ADD https://releases.hashicorp.com/packer/0.9.0/packer_0.9.0_linux_amd64.zip /tmp/ide.zip
 
 RUN apt-get update && \
     apt-get install -y unzip ca-certificates git && \
