@@ -11,7 +11,7 @@ CMD="docker run \
        --env AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
        --env AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
        --env AWS_REGION=$AWS_REGION \
-       kurron/docker-packer:0.9.0"
+       kurron/docker-packer:0.10.1"
 
 #echo $CMD
 eval $CMD $*
